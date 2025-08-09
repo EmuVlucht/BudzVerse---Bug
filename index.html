@@ -1,297 +1,185 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>⸸ Portal Kegelapan - Bug WhatsApp ⸸</title>
-<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to right, #000000, #0f0f0f);
-    font-family: 'Courier New', Courier, monospace;
-    color: #f00;
-    overflow-x: hidden;
-  }
-  .container {
-    padding: 30px;
-    max-width: 1000px;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.8);
-    box-shadow: 0 0 20px #ff0000;
-    border-radius: 15px;
-  }
-  h1, h2 {
-    font-family: 'UnifrakturCook', cursive;
-    text-align: center;
-    color: #ff0000;
-    text-shadow: 0 0 5px #f00;
-  }
-  .input-group, .button-group {
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
-  }
-  .input-group input, .button-group button, select {
-    margin: 5px 0;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background-color: #111;
-    color: #f00;
-    box-shadow: inset 0 0 10px #f00;
-    font-size: 1rem;
-  }
-  .button-group {
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  .button-group button:hover {
-    background-color: #f00;
-    color: black;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-  }
-  .output {
-    margin-top: 30px;
-    background-color: #111;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #f00;
-    min-height: 100px;
-    white-space: pre-wrap;
-    color: #0f0;
-  }
-  .footer {
-    margin-top: 40px;
-    text-align: center;
-    font-size: 0.8em;
-    color: #777;
-  }
-  /* Login styling */
-  #loginPage {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: rgba(0,0,0,0.85);
-    box-shadow: 0 0 20px #f00;
-    border-radius: 10px;
-    text-align: center;
-  }
-  #loginPage input {
-    width: 100%;
-  }
-  .shake {
-    animation: shake 0.4s;
-  }
-  @keyframes shake {
-    0% { transform: translateX(0); }
-    25% { transform: translateX(-5px); }
-    50% { transform: translateX(5px); }
-    75% { transform: translateX(-5px); }
-    100% { transform: translateX(0); }
-  }
-  /* Fade animation */
-  .fade {
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  .fade.show {
-    opacity: 1;
-  }
-  /* Light mode */
-  body.light {
-    background: linear-gradient(to right, #ffffff, #cccccc);
-    color: black;
-  }
-  body.light .container {
-    background-color: rgba(255,255,255,0.8);
-    box-shadow: 0 0 20px #333;
-  }
-  body.light h1, body.light h2 {
-    color: #222;
-    text-shadow: none;
-  }
-  body.light .output {
-    background-color: #f9f9f9;
-    color: #222;
-    border-color: #333;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Kegelapan - Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      transition: 0.3s;
+    }
+    .dark-mode {
+      background: linear-gradient(to right, #000000, #0f0f0f);
+      color: #f00;
+    }
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+    .form-box {
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+    .dark-mode .form-box {
+      background-color: #111;
+      color: #f00;
+      box-shadow: 0 0 15px #f00;
+    }
+    .form-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    .dark-mode input {
+      background-color: #000;
+      color: #f00;
+      border: 1px solid #f00;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #3498db;
+      border: none;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .dark-mode button {
+      background-color: #f00;
+      color: #000;
+    }
+    button:hover {
+      opacity: 0.9;
+    }
+    p {
+      text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    /* Portal Page */
+    #portal {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 0 0 20px #ff0000;
+      border-radius: 15px;
+      color: #f00;
+    }
+    /* Portal Transition Effect */
+    #portalTransition {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: radial-gradient(circle, rgba(255,0,0,0.8) 0%, rgba(0,0,0,1) 100%);
+      animation: portalOpen 1.5s ease forwards;
+      z-index: 999;
+    }
+    @keyframes portalOpen {
+      0% { transform: scale(0); opacity: 0; }
+      50% { transform: scale(1.2); opacity: 1; }
+      100% { transform: scale(1); opacity: 0; }
+    }
+  </style>
 </head>
 <body>
+  
+  <!-- Portal Transition -->
+  <div id="portalTransition"></div>
 
-<!-- LOGIN PAGE -->
-<div id="loginPage" class="fade">
-  <h2>🔒 Login</h2>
-  <input type="text" id="username" placeholder="Username">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Masuk</button>
-</div>
+  <!-- Auth Container -->
+  <div id="auth" class="container">
+    <form id="loginForm" class="form-box">
+      <h2>Login</h2>
+      <input type="text" id="loginUser" placeholder="Username" required>
+      <input type="password" id="loginPass" placeholder="Password" required>
+      <button type="submit">Login</button>
+      <p>Belum punya akun? <a href="#" onclick="toggleForms()">Daftar</a></p>
+    </form>
 
-<!-- MAIN PAGE -->
-<div id="mainPage" style="display:none;" class="fade">
-  <div class="container">
-    <h1>⸸ Portal Kegelapan ⸸</h1>
-    <p><strong>"Aku adalah penjaga gerbang ini, Budi. Di sinilah kekuatan WhatsApp dibengkokkan..."</strong></p>
-    <div class="input-group">
-      <label for="target">Nomor Target (Contoh: 628xxx)</label>
-      <input type="text" id="target" placeholder="Masukkan nomor target">
-      <label for="pilihBug">Pilih Bug</label>
-      <select id="pilihBug">
-        <option>.bugabyss</option>
-        <option>.bugblank</option>
-        <option>.bugbutton</option>
-        <option>.bugchaos</option>
-        <option>.bugcombo</option>
-        <option>.buggod</option>
-        <option>.bughellfire</option>
-        <option>.buginvis</option>
-        <option>.bugios</option>
-        <option>.bugnuke</option>
-        <option>.bugnukevault</option>
-        <option>.bugoverdrive</option>
-        <option>.bugredvirus</option>
-        <option>.bugshadow</option>
-        <option>.bugsql</option>
-        <option>.bugstorm</option>
-        <option>.bugvoid</option>
-        <option>.bugvoidmax</option>
-        <option>.chaosmatrix</option>
-        <option>.massgod</option>
-        <option>.paybug</option>
-      </select>
-    </div>
-    <div class="button-group">
-      <button onclick="generateBug()">🔪 Kirim Bug</button>
-      <button onclick="acakTarget()">🎲 Acak Nomor</button>
-      <button onclick="acakBug()">💥 Acak Bug</button>
-      <button onclick="salinOutput()">📋 Salin Output</button>
-      <button onclick="toggleMode()">🌗 Mode Terang/Gelap</button>
-      <button onclick="resetForm()">🧹 Reset</button>
-      <button onclick="logout()">🚪 Logout</button>
-    </div>
-    <div class="output" id="output">
-      ⸸ Siap menerima perintah... ⸸
-    </div>
-    <div class="footer">
-      Dibuat oleh Budi ⛓️ versi Ciel-MD v10.5.1
-    </div>
+    <form id="registerForm" class="form-box" style="display:none;">
+      <h2>Register</h2>
+      <input type="text" placeholder="Nama Lengkap" required>
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button type="submit">Daftar</button>
+      <p>Sudah punya akun? <a href="#" onclick="toggleForms()">Login</a></p>
+    </form>
   </div>
-</div>
+
+  <!-- Portal Page -->
+  <div id="portal">
+    <h1 style="font-family: 'UnifrakturCook', cursive;">⸸ Portal Kegelapan ⸸</h1>
+    <p><strong>"Aku adalah penjaga gerbang ini, Budi. Di sinilah kekuatan WhatsApp dibengkokkan..."</strong></p>
+    <label>Nomor Target:</label>
+    <input type="text" id="target" placeholder="Masukkan nomor target">
+    <label>Pilih Bug:</label>
+    <select id="pilihBug">
+      <option>.bugabyss</option>
+      <option>.bugblank</option>
+      <option>.bugbutton</option>
+    </select>
+    <button onclick="generateBug()">🔪 Kirim Bug</button>
+    <button onclick="toggleMode()">🌓 Ganti Mode</button>
+    <div id="output" style="margin-top:20px;color:#0f0;">⸸ Siap menerima perintah... ⸸</div>
+  </div>
 
 <script>
-/* LOGIN SYSTEM */
-const validUser = "budi";
-const validPass = "12345";
-
-function login() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-  if(user === validUser && pass === validPass) {
-    localStorage.setItem("loggedIn", "true");
-    showMainPage();
-  } else {
-    const loginBox = document.getElementById('loginPage');
-    loginBox.classList.add('shake');
-    setTimeout(() => loginBox.classList.remove('shake'), 400);
-    alert("❌ Username atau password salah!");
+  function toggleForms() {
+    document.getElementById('loginForm').style.display =
+      document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
+    document.getElementById('registerForm').style.display =
+      document.getElementById('registerForm').style.display === 'none' ? 'block' : 'none';
   }
-}
-
-function showMainPage() {
-  const loginPage = document.getElementById('loginPage');
-  const mainPage = document.getElementById('mainPage');
-  loginPage.classList.remove('show');
-  setTimeout(() => {
-    loginPage.style.display = 'none';
-    mainPage.style.display = 'block';
+  document.getElementById('loginForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    showPortal();
+  });
+  function showPortal() {
+    document.getElementById('portalTransition').style.display = 'block';
     setTimeout(() => {
-      mainPage.classList.add('show');
-    }, 10);
-  }, 500);
-}
-
-function logout() {
-  const loginPage = document.getElementById('loginPage');
-  const mainPage = document.getElementById('mainPage');
-  mainPage.classList.remove('show');
-  setTimeout(() => {
-    mainPage.style.display = 'none';
-    loginPage.style.display = 'block';
-    setTimeout(() => {
-      loginPage.classList.add('show');
-    }, 10);
-  }, 500);
-  localStorage.removeItem("loggedIn");
-}
-
-/* BUG FUNCTIONS */
-function generateBug() {
-  const target = document.getElementById('target').value;
-  const bug = document.getElementById('pilihBug').value;
-  if (!target) {
-    document.getElementById('output').innerText = '⚠️ Nomor target kosong.';
-    return;
+      document.getElementById('auth').style.display = 'none';
+      document.getElementById('portal').style.display = 'flex';
+      document.getElementById('portalTransition').style.display = 'none';
+    }, 1500);
   }
-  const pesan = `Gagal Mengirim ${bug} ke ${target}...\n⸸⸸⸸ Bug mengalami kegagalan saat dikirim dari alam kegelapan ⸸⸸⸸`;
-  document.getElementById('output').innerText = pesan;
-  anime({ targets: '#output', scale: [0.95, 1], duration: 500, easing: 'easeInOutQuad' });
-}
-
-function generateRandomIndonesianPhoneNumber() {
-  const prefix = "62";
-  const length = Math.floor(Math.random() * 4) + 9; 
-  let number = "8";
-  for (let i = 1; i < length; i++) {
-    number += Math.floor(Math.random() * 10);
+  function generateBug() {
+    const target = document.getElementById('target').value;
+    const bug = document.getElementById('pilihBug').value;
+    if (!target) {
+      document.getElementById('output').innerText = '⚠️ Nomor target kosong.';
+      return;
+    }
+    const pesan = `Mengirim ${bug} ke ${target}...\n⸸ Dari alam kegelapan terkirim ⸸`;
+    document.getElementById('output').innerText = pesan;
   }
-  return prefix + number;
-}
-
-function acakTarget() {
-  document.getElementById('target').value = generateRandomIndonesianPhoneNumber();
-}
-
-function acakBug() {
-  const select = document.getElementById('pilihBug');
-  const index = Math.floor(Math.random() * select.options.length);
-  select.selectedIndex = index;
-}
-
-function salinOutput() {
-  const text = document.getElementById('output').innerText;
-  navigator.clipboard.writeText(text);
-  alert("📋 Output disalin ke clipboard.");
-}
-
-function toggleMode() {
-  document.body.classList.toggle("light");
-}
-
-function resetForm() {
-  document.getElementById('target').value = '';
-  document.getElementById('pilihBug').selectedIndex = 0;
-  document.getElementById('output').innerText = '⸸ Siap menerima perintah... ⸸';
-}
-
-/* PAGE LOAD */
-window.onload = () => {
-  const loginPage = document.getElementById('loginPage');
-  const mainPage = document.getElementById('mainPage');
-  loginPage.classList.add('fade');
-  mainPage.classList.add('fade');
-  if(localStorage.getItem("loggedIn") === "true") {
-    loginPage.style.display = 'none';
-    mainPage.style.display = 'block';
-    setTimeout(() => { mainPage.classList.add('show'); }, 10);
-  } else {
-    loginPage.style.display = 'block';
-    setTimeout(() => { loginPage.classList.add('show'); }, 10);
+  function toggleMode() {
+    document.body.classList.toggle('dark-mode');
   }
-};
 </script>
+
 </body>
 </html>
