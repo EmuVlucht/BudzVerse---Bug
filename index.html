@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Kegelapan - Login</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Portal Kegelapan — Auth & Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
   <style>
+    /* ---------- Basic layout (your original CSS) ---------- */
     body {
       font-family: sans-serif;
       background-color: #f5f5f5;
@@ -15,11 +15,7 @@
       align-items: center;
       height: 100vh;
       margin: 0;
-      transition: 0.3s;
-    }
-    .dark-mode {
-      background: linear-gradient(to right, #000000, #0f0f0f);
-      color: #f00;
+      transition: background 0.3s, color 0.3s;
     }
     .container {
       display: flex;
@@ -32,50 +28,18 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       width: 300px;
     }
-    .dark-mode .form-box {
-      background-color: #111;
-      color: #f00;
-      box-shadow: 0 0 15px #f00;
-    }
-    .form-box h2 {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+    .form-box h2 { text-align:center; margin-bottom:20px; color:#333; }
     input[type="text"], input[type="email"], input[type="password"] {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-    .dark-mode input {
-      background-color: #000;
-      color: #f00;
-      border: 1px solid #f00;
+      width:100%; padding:10px; margin:10px 0; border-radius:8px; border:1px solid #ccc;
     }
     button {
-      width: 100%;
-      padding: 10px;
-      background-color: #3498db;
-      border: none;
-      color: white;
-      font-weight: bold;
-      border-radius: 8px;
-      cursor: pointer;
+      width:100%; padding:10px; background-color:#3498db; border:none; color:white;
+      font-weight:bold; border-radius:8px; cursor:pointer; transition:0.3s;
     }
-    .dark-mode button {
-      background-color: #f00;
-      color: #000;
-    }
-    button:hover {
-      opacity: 0.9;
-    }
-    p {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    /* Portal Page */
+    button:hover { background-color:#2980b9; }
+    p { text-align:center; margin-top:10px; font-size:14px; }
+
+    /* ---------- Portal styles ---------- */
     #portal {
       display: none;
       flex-direction: column;
@@ -83,103 +47,317 @@
       padding: 30px;
       max-width: 1000px;
       margin: auto;
-      background-color: rgba(0, 0, 0, 0.8);
-      box-shadow: 0 0 20px #ff0000;
+      background-color: rgba(0,0,0,0.9);
+      box-shadow: 0 0 30px #ff0000;
       border-radius: 15px;
       color: #f00;
+      font-family: 'Courier New', monospace;
+      width: calc(100% - 80px);
+      max-width: 980px;
     }
-    /* Portal Transition Effect */
+    #portal h1 {
+      font-family: 'UnifrakturCook', cursive;
+      text-align:center; color:#ff3333; text-shadow:0 0 8px #900;
+      margin: 0 0 10px 0;
+    }
+    #portal .input-group, #portal .button-group {
+      width: 100%;
+      margin: 16px 0;
+    }
+    #portal input, #portal select, #portal button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background-color: #111;
+      color: #f00;
+      box-shadow: inset 0 0 10px #f00;
+      font-size: 1rem;
+      margin: 6px 0;
+    }
+    #portal .output {
+      margin-top: 20px;
+      width: 100%;
+      background-color: #111;
+      padding: 16px;
+      border-radius: 8px;
+      border: 2px solid #550;
+      min-height: 80px;
+      color: #0f0;
+      white-space: pre-wrap;
+    }
+
+    /* ---------- Dark mode overrides ---------- */
+    body.dark {
+      background: linear-gradient(to right, #000000, #0f0f0f);
+      color: #f00;
+    }
+    body.dark .form-box { background:#111; color:#f00; box-shadow:0 0 18px #660000; }
+    body.dark input { background:#111; color:#f00; border:1px solid #330000; }
+    body.dark button { background:#660000; color:#fff; }
+    body.dark #portal { background: rgba(0,0,0,0.95); color:#f00; }
+
+    /* ---------- Shake animation for failed login ---------- */
+    .shake {
+      animation: shake 0.36s;
+    }
+    @keyframes shake {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-8px); }
+      50% { transform: translateX(8px); }
+      75% { transform: translateX(-6px); }
+      100% { transform: translateX(0); }
+    }
+
+    /* ---------- Portal transition (radial red flash) ---------- */
     #portalTransition {
       display: none;
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: radial-gradient(circle, rgba(255,0,0,0.8) 0%, rgba(0,0,0,1) 100%);
-      animation: portalOpen 1.5s ease forwards;
-      z-index: 999;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,0,0,0.85) 0%, rgba(0,0,0,1) 60%);
+      z-index: 9999;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
-    @keyframes portalOpen {
-      0% { transform: scale(0); opacity: 0; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(1); opacity: 0; }
+    #portalTransition.show {
+      display: block;
+      opacity: 1;
+      transform: scale(1.15);
+    }
+
+    /* Responsive: stack forms on small screens */
+    @media (max-width: 760px) {
+      .container { flex-direction: column; align-items:center; padding:20px; }
+      #portal { width: 100%; margin: 20px 0; }
     }
   </style>
 </head>
 <body>
-  
-  <!-- Portal Transition -->
-  <div id="portalTransition"></div>
 
-  <!-- Auth Container -->
-  <div id="auth" class="container">
-    <form id="loginForm" class="form-box">
+  <!-- Portal Transition effect -->
+  <div id="portalTransition" aria-hidden="true"></div>
+
+  <!-- Auth area (login + register) -->
+  <div id="auth" class="container" role="region" aria-label="Authentication">
+    <form id="loginForm" class="form-box" autocomplete="off">
       <h2>Login</h2>
-      <input type="text" id="loginUser" placeholder="Username" required>
-      <input type="password" id="loginPass" placeholder="Password" required>
+      <input id="loginUser" type="text" placeholder="Username" required />
+      <input id="loginPass" type="password" placeholder="Password" required />
       <button type="submit">Login</button>
-      <p>Belum punya akun? <a href="#" onclick="toggleForms()">Daftar</a></p>
+      <p>Belum punya akun? <a href="#" id="toRegister">Daftar</a></p>
     </form>
 
-    <form id="registerForm" class="form-box" style="display:none;">
+    <form id="registerForm" class="form-box" style="display:none" autocomplete="off">
       <h2>Register</h2>
-      <input type="text" placeholder="Nama Lengkap" required>
-      <input type="email" placeholder="Email" required>
-      <input type="password" placeholder="Password" required>
+      <input id="regUser" type="text" placeholder="Username" required />
+      <input id="regEmail" type="email" placeholder="Email (opsional)" />
+      <input id="regPass" type="password" placeholder="Password" required />
       <button type="submit">Daftar</button>
-      <p>Sudah punya akun? <a href="#" onclick="toggleForms()">Login</a></p>
+      <p>Sudah punya akun? <a href="#" id="toLogin">Login</a></p>
     </form>
   </div>
 
-  <!-- Portal Page -->
-  <div id="portal">
-    <h1 style="font-family: 'UnifrakturCook', cursive;">⸸ Portal Kegelapan ⸸</h1>
+  <!-- Portal -->
+  <div id="portal" role="main" aria-hidden="true">
+    <h1>⸸ Portal Kegelapan ⸸</h1>
     <p><strong>"Aku adalah penjaga gerbang ini, Budi. Di sinilah kekuatan WhatsApp dibengkokkan..."</strong></p>
-    <label>Nomor Target:</label>
-    <input type="text" id="target" placeholder="Masukkan nomor target">
-    <label>Pilih Bug:</label>
-    <select id="pilihBug">
-      <option>.bugabyss</option>
-      <option>.bugblank</option>
-      <option>.bugbutton</option>
-    </select>
-    <button onclick="generateBug()">🔪 Kirim Bug</button>
-    <button onclick="toggleMode()">🌓 Ganti Mode</button>
-    <div id="output" style="margin-top:20px;color:#0f0;">⸸ Siap menerima perintah... ⸸</div>
+
+    <div class="input-group">
+      <label for="target" style="display:block; color:#ff6666; margin-bottom:6px;">Nomor Target</label>
+      <input id="target" type="text" placeholder="Contoh: +628xxxx..." />
+      <label for="pilihBug" style="display:block; color:#ff6666; margin-top:8px;">Pilih Bug</label>
+      <select id="pilihBug">
+        <option>.bugabyss</option>
+        <option>.bugblank</option>
+        <option>.bugbutton</option>
+        <option>.bugchaos</option>
+        <option>.bugcombo</option>
+      </select>
+    </div>
+
+    <div class="button-group" style="width:100%; margin-top:12px;">
+      <button type="button" onclick="generateBug()">🔪 Kirim Bug</button>
+      <button type="button" onclick="acakTarget()">🎲 Acak Nomor</button>
+      <button type="button" onclick="acakBug()">💥 Acak Bug</button>
+      <button type="button" onclick="toggleMode()">🌓 Mode</button>
+      <button type="button" onclick="logout()">🚪 Logout</button>
+    </div>
+
+    <div class="output" id="output">⸸ Siap menerima perintah... ⸸</div>
   </div>
 
-<script>
-  function toggleForms() {
-    document.getElementById('loginForm').style.display =
-      document.getElementById('loginForm').style.display === 'none' ? 'block' : 'none';
-    document.getElementById('registerForm').style.display =
-      document.getElementById('registerForm').style.display === 'none' ? 'block' : 'none';
-  }
-  document.getElementById('loginForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    showPortal();
-  });
-  function showPortal() {
-    document.getElementById('portalTransition').style.display = 'block';
-    setTimeout(() => {
-      document.getElementById('auth').style.display = 'none';
-      document.getElementById('portal').style.display = 'flex';
-      document.getElementById('portalTransition').style.display = 'none';
-    }, 1500);
-  }
-  function generateBug() {
-    const target = document.getElementById('target').value;
-    const bug = document.getElementById('pilihBug').value;
-    if (!target) {
-      document.getElementById('output').innerText = '⚠️ Nomor target kosong.';
-      return;
-    }
-    const pesan = `Mengirim ${bug} ke ${target}...\n⸸ Dari alam kegelapan terkirim ⸸`;
-    document.getElementById('output').innerText = pesan;
-  }
-  function toggleMode() {
-    document.body.classList.toggle('dark-mode');
-  }
-</script>
+  <script>
+    // ---------- Keys for localStorage ----------
+    const KEY_USER = 'portal_username';
+    const KEY_PASS = 'portal_password';
+    const KEY_LOGGED = 'portal_loggedIn';
+    const KEY_DARK = 'portal_darkMode';
 
+    // ---------- Helper: show/hide forms ----------
+    const loginForm = document.getElementById('loginForm');
+    const registerForm = document.getElementById('registerForm');
+    const authContainer = document.getElementById('auth');
+    const portal = document.getElementById('portal');
+    const portalTransition = document.getElementById('portalTransition');
+
+    document.getElementById('toRegister').addEventListener('click', function(e){
+      e.preventDefault();
+      loginForm.style.display = 'none';
+      registerForm.style.display = 'block';
+    });
+
+    document.getElementById('toLogin').addEventListener('click', function(e){
+      e.preventDefault();
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+    });
+
+    // ---------- Register handler ----------
+    registerForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const user = document.getElementById('regUser').value.trim();
+      const pass = document.getElementById('regPass').value;
+      const email = document.getElementById('regEmail').value.trim();
+
+      if (!user || !pass) {
+        alert('Username dan password harus diisi.');
+        return;
+      }
+
+      // Save credentials (simple demo; for real app do NOT store plaintext password)
+      localStorage.setItem(KEY_USER, user);
+      localStorage.setItem(KEY_PASS, pass);
+      localStorage.setItem('portal_email', email);
+      alert('Registrasi berhasil. Silakan login.');
+      registerForm.reset();
+      registerForm.style.display = 'none';
+      loginForm.style.display = 'block';
+      document.getElementById('loginUser').value = user;
+      document.getElementById('loginPass').focus();
+    });
+
+    // ---------- Login handler ----------
+    loginForm.addEventListener('submit', function(e){
+      e.preventDefault();
+      const user = document.getElementById('loginUser').value.trim();
+      const pass = document.getElementById('loginPass').value;
+
+      const storedUser = localStorage.getItem(KEY_USER);
+      const storedPass = localStorage.getItem(KEY_PASS);
+
+      if (!storedUser) {
+        // no account yet
+        loginForm.classList.add('shake');
+        setTimeout(()=> loginForm.classList.remove('shake'), 360);
+        alert('Belum ada akun terdaftar. Silakan daftar terlebih dahulu.');
+        return;
+      }
+
+      if (user === storedUser && pass === storedPass) {
+        // success
+        localStorage.setItem(KEY_LOGGED, 'true');
+        // show portal with transition
+        showPortalWithTransition();
+      } else {
+        loginForm.classList.add('shake');
+        setTimeout(()=> loginForm.classList.remove('shake'), 360);
+        alert('Username atau password salah.');
+      }
+    });
+
+    // ---------- Show portal with transition ----------
+    function showPortalWithTransition() {
+      // show red radial, then switch views
+      portalTransition.classList.add('show');
+      // duration matches CSS transition (0.6s) + slight hold
+      setTimeout(() => {
+        authContainer.style.display = 'none';
+        portal.style.display = 'flex';
+        portal.setAttribute('aria-hidden', 'false');
+        portalTransition.classList.remove('show');
+        // If user previously typed something in login, clear it
+        loginForm.reset();
+        registerForm.reset();
+      }, 800); // 800ms feels snappy
+    }
+
+    // ---------- Show portal directly (on reload if logged) ----------
+    function showPortalDirect() {
+      authContainer.style.display = 'none';
+      portal.style.display = 'flex';
+      portal.setAttribute('aria-hidden', 'false');
+    }
+
+    // ---------- Logout ----------
+    function logout() {
+      localStorage.removeItem(KEY_LOGGED);
+      // show auth container again
+      portal.style.display = 'none';
+      authContainer.style.display = 'flex';
+      // keep dark mode as-is (optional)
+    }
+
+    // ---------- Toggle dark mode (persist) ----------
+    function toggleMode() {
+      document.body.classList.toggle('dark');
+      if (document.body.classList.contains('dark')) {
+        localStorage.setItem(KEY_DARK, 'true');
+      } else {
+        localStorage.removeItem(KEY_DARK);
+      }
+    }
+
+    // ---------- Random +62 phone generator ----------
+    function generateRandomIndonesianPhoneNumber() {
+      // +62 then 8 then 9..12 digits (total variable)
+      let digitsAfter8 = Math.floor(Math.random() * 4) + 9; // 9..12
+      let s = '+62' + '8';
+      for (let i = 0; i < digitsAfter8; i++) {
+        s += Math.floor(Math.random() * 10);
+      }
+      return s;
+    }
+
+    function acakTarget() {
+      document.getElementById('target').value = generateRandomIndonesianPhoneNumber();
+    }
+
+    function acakBug() {
+      const sel = document.getElementById('pilihBug');
+      sel.selectedIndex = Math.floor(Math.random() * sel.options.length);
+    }
+
+    function generateBug() {
+      const t = document.getElementById('target').value.trim();
+      const bug = document.getElementById('pilihBug').value;
+      const out = document.getElementById('output');
+      if (!t) {
+        out.innerText = '⚠️ Nomor target kosong.';
+        return;
+      }
+      out.innerText = `Mengirim ${bug} ke ${t}...\n⸸ Dari alam kegelapan terkirim ⸸`;
+    }
+
+    // ---------- On load: restore login state and dark mode ----------
+    window.addEventListener('load', function(){
+      // restore dark mode if set
+      if (localStorage.getItem(KEY_DARK) === 'true') {
+        document.body.classList.add('dark');
+      }
+      // if logged in, show portal
+      if (localStorage.getItem(KEY_LOGGED) === 'true') {
+        showPortalDirect();
+      } else {
+        // make sure auth visible
+        authContainer.style.display = 'flex';
+      }
+    });
+
+    // Accessibility: allow Enter to activate the first visible submit (native)
+    // (handled by form submit event listeners)
+
+  </script>
 </body>
 </html>
