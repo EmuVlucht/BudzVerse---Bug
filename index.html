@@ -6,51 +6,49 @@
    Website Blocked
   </title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background: 
-        linear-gradient(-45deg, rgba(13,59,102,0.7), rgba(30,96,145,0.7), rgba(20,69,82,0.7), rgba(13,59,102,0.7)),
-        url('background.jpg'); /* Ganti 'background.jpg' dengan gambar kamu */
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      animation: gradientBG 10s ease infinite;
-    }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%, center; }
-      50% { background-position: 100% 50%, center; }
-      100% { background-position: 0% 50%, center; }
-    }
+   @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+   /* Tambahan style untuk background image */
+   body {
+     background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80');
+     background-size: cover;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-attachment: fixed;
+   }
   </style>
  </head>
- <body class="flex items-center justify-center min-h-screen p-4">
-  <main class="max-w-[400px] text-center text-white">
-   <img alt="Komdigi logo" class="mx-auto mb-6" height="80" src="Komdigi.png" width="80"/>
-   <h1 class="text-3xl font-extrabold leading-tight mb-2">
+ <body class="bg-[#6a3f44] font-['Roboto'] flex flex-col items-center justify-start min-h-screen p-4">
+  <div class="max-w-md w-full text-center text-white select-none px-4 sm:px-6">
+   <img alt="KOMINFO logo with blue swirl design on white background" class="mx-auto mb-6 rounded-md" height="80" src="https://storage.googleapis.com/a1aa/image/9a36f5d2-7563-4808-2506-8e317f0b3c4c.jpg" width="80"/>
+   <h1 class="text-3xl font-extrabold mb-2 leading-tight">
     SITUS DIBLOKIR
    </h1>
-   <h2 class="text-2xl font-extrabold italic mb-6">
+   <h2 class="text-xl font-extrabold italic mb-6">
     WEBSITE BLOCKED
    </h2>
-   <p class="font-bold text-base leading-snug mb-2">
+   <p class="text-base font-bold leading-snug mb-2">
     UNDANG-UNDANG NOMOR 19 TAHUN 2016 PASAL 40 (2a) dan (2b) TENTANG INFORMASI DAN TRANSAKSI ELEKTRONIK
    </p>
-   <p class="italic mb-6 text-base leading-relaxed">
-    Indonesia Law No.19 Year 2016 Article 40 (2a) and (2b) regarding Information and Electronic Transaction
+   <p class="text-base italic mb-6 leading-relaxed">
+    Indonesia Law No.19 Year 2016 Article 40 (2a) and (2b) regarding Information and Electonic Transaction
    </p>
-   <p class="font-bold text-base leading-snug mb-2">
+   <p class="text-base font-bold leading-snug mb-2">
     PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NO.5 TAHUN 2020 TENTANG PENYELENGGARA SISTEM ELEKTRONIK LINGKUP PRIVAT
    </p>
-   <p class="italic mb-6 text-base leading-relaxed">
+   <p class="text-base italic mb-6 leading-relaxed">
     Regulation of The Minister of Communications and Informatics of The Republic of Indonesia Number 5 of 2020 on Private Electronic System Operators
    </p>
-   <p class="text-base leading-relaxed">
+   <p class="text-sm font-normal mb-8 leading-tight">
     MAAF, AKSES KE SITUS INI DIBLOKIR OLEH PEMERINTAH INDONESIA
     <br/>
     KARENA MENGANDUNG KONTEN NEGATIF YANG MELANGGAR PERATURAN PERUNDANGAN DI INDONESIA
    </p>
-  </main>
+   <button aria-label="Check Database Trustpositif" class="text-white font-bold text-base px-6 py-2 rounded-md border border-red-500 bg-[#7a8a9a] shadow-[0_0_6px_2px_rgba(255,0,0,0.5)] hover:bg-[#6a7a8a] transition">
+    CHECK DATABASE TRUSTPOSITIF
+   </button>
+  </div>
  </body>
 </html>
