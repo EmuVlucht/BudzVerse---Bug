@@ -10,14 +10,18 @@
   <style>
     body {
       font-family: 'Roboto', sans-serif;
-      background: linear-gradient(-45deg, #0d3b66, #1e6091, #144552, #0d3b66);
-      background-size: 400% 400%;
+      background: 
+        linear-gradient(-45deg, rgba(13,59,102,0.7), rgba(30,96,145,0.7), rgba(20,69,82,0.7), rgba(13,59,102,0.7)),
+        url('background.jpg'); /* Ganti 'background.jpg' dengan gambar kamu */
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       animation: gradientBG 10s ease infinite;
     }
     @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      0% { background-position: 0% 50%, center; }
+      50% { background-position: 100% 50%, center; }
+      100% { background-position: 0% 50%, center; }
     }
   </style>
  </head>
