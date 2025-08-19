@@ -1,0 +1,44 @@
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>
+Website Blocked
+</title>
+<script src=https://cdn.tailwindcss.com></script>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css rel=stylesheet>
+<link rel=icon type=image/png href=https://i.ibb.co.com/bfdZsBv/Komdigi.png>
+<style>@import url(https://fonts.googleapis.com/css2?family=Roboto&display=swap);body{background-image:url('https://i.ibb.co.com/pjJXjLXw/Indonesin-Danger.png');background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed}</style>
+</head>
+<body class="bg-[#6a3f44] font-['Roboto'] flex flex-col items-center justify-start min-h-screen p-4">
+<div class="max-w-md w-full text-center text-white select-none px-4 sm:px-6">
+<img alt="KOMINFO logo with blue swirl design on white background" class="mx-auto mb-6 rounded-md" height=80 src=https://i.ibb.co.com/bfdZsBv/Komdigi.png width=80>
+<h1 class="text-3xl font-extrabold mb-2 leading-tight">
+SITUS DIBLOKIR
+</h1>
+<h2 class="text-xl font-extrabold italic mb-6">
+WEBSITE BLOCKED
+</h2>
+<p class="text-base font-bold leading-snug mb-2">
+UNDANG-UNDANG NOMOR 19 TAHUN 2016 PASAL 40 (2a) dan (2b) TENTANG INFORMASI DAN TRANSAKSI ELEKTRONIK
+</p>
+<p class="text-base italic mb-6 leading-relaxed">
+Indonesia Law No.19 Year 2016 Article 40 (2a) and (2b) regarding Information and Electonic Transaction
+</p>
+<p class="text-base font-bold leading-snug mb-2">
+PERATURAN MENTERI KOMUNIKASI DAN INFORMATIKA NO.5 TAHUN 2020 TENTANG PENYELENGGARA SISTEM ELEKTRONIK LINGKUP PRIVAT
+</p>
+<p class="text-base italic mb-6 leading-relaxed">
+Regulation of The Minister of Communications and Informatics of The Republic of Indonesia Number 5 of 2020 on Private Electronic System Operators
+</p>
+<p class="text-sm font-normal mb-8 leading-tight">
+MAAF, AKSES KE SITUS INI DIBLOKIR OLEH PEMERINTAH INDONESIA
+<br>
+KARENA MENGANDUNG KONTEN NEGATIF YANG MELANGGAR PERATURAN PERUNDANGAN DI INDONESIA
+</p>
+<button aria-label="Check Database Trustpositif" class="text-white font-bold text-base px-6 py-2 rounded-md border border-red-500 bg-[#7a8a9a] shadow-[0_0_6px_2px_rgba(255,0,0,0.5)] hover:bg-[#6a7a8a] transition">
+CHECK DATABASE TRUSTPOSITIF
+</button>
+</div>
+</body>
+</html>
