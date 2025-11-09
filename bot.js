@@ -197,15 +197,62 @@ async function checkAndUpdatePP() {
 }
 
 let client;
+let pairingCodeRequested = false;
 
 async function main() {
     console.log('🔌 Menghubungkan ke WhatsApp...');
+    
+    const phoneNumber = process.env.PHONE_NUMBER;
+    
+    if (phoneNumber) {
+        console.log('📞 Mode: Pairing Code');
+        console.log('📱 Nomor: ' + phoneNumber);
+        console.log('');
+    } else {
+        console.log('📞 Mode: QR Code');
+        console.log('💡 Tip: Untuk menggunakan Pairing Code, set environment variable PHONE_NUMBER');
+        console.log('   (contoh: 6281234567890 untuk nomor Indonesia)');
+        console.log('');
+    }
+    
     client = await initializeClient();
     
-    client.on('qr', (qr) => {
-        console.log('📱 Scan QR Code di bawah ini dengan WhatsApp Anda:');
-        qrcode.generate(qr, { small: true });
-        console.log('\nAtau gunakan pairing code jika tersedia di versi WhatsApp Anda.');
+    client.on('qr', async (qr) => {
+        if (phoneNumber && !pairingCodeRequested) {
+            pairingCodeRequested = true;
+            
+            try {
+                console.log('⏳ Meminta pairing code...');
+                const code = await client.requestPairingCode(phoneNumber);
+                console.log('');
+                console.log('═══════════════════════════════════════');
+                console.log('✅ PAIRING CODE ANDA: ' + code);
+                console.log('═══════════════════════════════════════');
+                console.log('');
+                console.log('📱 Cara menggunakan:');
+                console.log('1. Buka WhatsApp di ponsel Anda');
+                console.log('2. Ketuk menu (⋮) > Perangkat Tertaut');
+                console.log('3. Ketuk "Tautkan Perangkat"');
+                console.log('4. Pilih "Tautkan dengan Nomor Telepon" (di bagian bawah)');
+                console.log('5. Masukkan kode: ' + code);
+                console.log('6. Ketuk "Tautkan"');
+                console.log('');
+                console.log('⏱️  Kode berlaku selama 3 menit');
+                console.log('');
+            } catch (error) {
+                console.error('❌ Error mendapatkan pairing code:', error.message);
+                console.log('');
+                console.log('🔄 Mencoba dengan QR Code sebagai alternatif...');
+                console.log('📱 Scan QR Code di bawah ini dengan WhatsApp Anda:');
+                qrcode.generate(qr, { small: true });
+            }
+        } else {
+            console.log('📱 Scan QR Code di bawah ini dengan WhatsApp Anda:');
+            qrcode.generate(qr, { small: true });
+            console.log('');
+            console.log('💡 Atau gunakan Pairing Code dengan set environment variable PHONE_NUMBER');
+            console.log('');
+        }
     });
 
     client.on('authenticated', () => {

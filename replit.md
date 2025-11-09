@@ -19,6 +19,7 @@ Bot WhatsApp yang secara otomatis mengganti foto profil (PP) berdasarkan waktu d
 3. **Deteksi Hari Libur**: Otomatis mendeteksi Sabtu, Minggu, dan hari libur dari file libur.json
 4. **Session Management**: Menyimpan sesi WhatsApp agar tidak perlu scan QR berulang kali
 5. **Timezone WIT**: Menggunakan Asia/Makassar (Waktu Indonesia Timur)
+6. **Dual Authentication**: Mendukung QR Code dan Pairing Code (8 digit) untuk koneksi WhatsApp
 
 ## Struktur File
 ```
@@ -41,11 +42,32 @@ Bot WhatsApp yang secara otomatis mengganti foto profil (PP) berdasarkan waktu d
 ## Cara Menggunakan
 
 ### 1. Pertama Kali (Koneksi WhatsApp)
-Saat bot berjalan pertama kali, Anda akan melihat QR code di console. Scan QR code tersebut dengan WhatsApp Anda:
+
+Bot mendukung **2 metode** autentikasi WhatsApp:
+
+#### **Metode 1: QR Code** (Default)
+Saat bot berjalan tanpa konfigurasi tambahan, QR code akan muncul di console:
 1. Buka WhatsApp di ponsel
 2. Tap titik tiga (⋮) > Perangkat Tertaut
 3. Tap "Tautkan Perangkat"
 4. Scan QR code yang muncul di console
+
+#### **Metode 2: Pairing Code** (8 Digit)
+Untuk menggunakan pairing code tanpa scan QR:
+1. **Set environment variable PHONE_NUMBER** di Replit Secrets (kunci gembok di sidebar kiri)
+   - Key: `PHONE_NUMBER`
+   - Value: Nomor WhatsApp Anda dalam format internasional tanpa tanda (contoh: `6281234567890` untuk Indonesia)
+2. **Restart workflow** "WhatsApp Bot"
+3. Bot akan menampilkan **kode 8 huruf** di console
+4. Buka WhatsApp di ponsel → Menu (⋮) → Perangkat Tertaut → Tautkan Perangkat
+5. Pilih **"Tautkan dengan Nomor Telepon"** (di bagian bawah)
+6. Masukkan kode 8 huruf tersebut
+7. Tap "Tautkan"
+
+**Catatan:** 
+- Pairing code berlaku selama 3 menit
+- Nomor telepon yang diset adalah **nomor WhatsApp Anda sendiri** yang akan digunakan untuk bot
+- Data nomor telepon disimpan secara private di Replit Secrets, tidak akan di-commit ke git
 
 ### 2. Menjalankan Bot
 Bot sudah dikonfigurasi untuk berjalan otomatis. Workflow "WhatsApp Bot" akan menjalankan perintah `npm start`.
@@ -121,3 +143,7 @@ Sesi WhatsApp disimpan di folder `.wwebjs_auth/` (diabaikan oleh git).
   - Integrasi moment-timezone untuk WIT
   - Setup chromium untuk puppeteer di Replit environment
   - Generate placeholder images untuk PP
+  - **Tambahan**: Fitur pairing code authentication sebagai alternatif QR code
+    - Mendukung environment variable PHONE_NUMBER
+    - Otomatis generate kode 8 huruf untuk autentikasi
+    - Fallback ke QR code jika pairing code gagal
